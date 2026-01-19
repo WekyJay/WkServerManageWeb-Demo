@@ -1,0 +1,19 @@
+
+# 忽略 IDE 相关文件
+.idea/
+.vscode/
+*.iml
+
+# Java相关
+*.class
+*.log
+
+# 编译输出
+target/
+
+# docker 相关
+docker/
+
+# 其他
+.DS_Store
+Thumbs.db
