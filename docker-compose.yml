@@ -1,0 +1,38 @@
+services:
+  # 后端 + 前端全栈应用
+  wk-app:
+    image: wekyjay/wk-server-manage:v1.0.1
+    container_name: wk-server-app
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      # 数据库连接地址，'wk-db' 对应下方数据库的服务名
+      - SPRING_DATASOURCE_URL=jdbc:mysql://wk-db:3306/wk_manage?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=123456  # 请修改为你的数据库密码
+      - SPRING_PROFILES_ACTIVE=prod
+    volumes:
+      - ./docker/logs:/app/logs                # 挂载日志文件
+      - ./docker/uploads:/app/uploads          # 挂载上传目录（如涉及文件上传）
+    depends_on:
+      wk-db:
+        condition: service_healthy      # 确保数据库启动健康后再启动应用
+
+  # MySQL 数据库
+  wk-db:
+    image: mysql:8.0
+    container_name: wk-server-db
+    restart: always
+    environment:
+      - MYSQL_DATABASE=wk_manage        # 自动创建名为 wk_manage 的数据库
+      - MYSQL_ROOT_PASSWORD=123456      # 必须与上面配置的密码一致
+    volumes:
+      - ./docker/mysql_data:/var/lib/mysql     # 关键：持久化数据库数据，防止重启丢失
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5

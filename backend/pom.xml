@@ -6,20 +6,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.0</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>cn.wekyjay.demo</groupId>
+        <artifactId>wk-server-manage-web</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <!-- 项目基本信息 -->
-    <groupId>cn.wekyjay.demo</groupId>
-    <artifactId>wk-server-manage-web</artifactId>
+    <artifactId>wk-server-manage-backend</artifactId>
     <version>1.0-SNAPSHOT</version>
-
-    <properties>
-        <spring.version>3.3.0</spring.version>
-    </properties>
 
     <!-- 默认打包方式 -->
     <packaging>jar</packaging>
@@ -37,49 +32,12 @@
         </dependency>
     </dependencies>
 
-    <!-- 构建配置 -->
     <build>
+        <finalName>app</finalName>
         <plugins>
-            <!-- Spring Boot Maven 插件 -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>3.1.5</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal> <!-- 此目标会修正主类信息 -->
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.12.1</version>
-                <configuration>
-                    <workingDirectory>frontend</workingDirectory>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>install-node</id>
-                        <goals>
-                            <goal>install-node-and-npm</goal>
-                        </goals>
-                        <configuration>
-                            <nodeVersion>v18.16.0</nodeVersion>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>npm-build</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>run build</arguments>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
